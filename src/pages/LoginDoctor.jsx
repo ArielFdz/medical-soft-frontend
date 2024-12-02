@@ -2,8 +2,14 @@ import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import React from 'react'
 import Logo from '../assets/logo.png'
+import { useNavigate } from 'react-router-dom'
 
-export const Login = () => {
+export const LoginDoctor = () => {
+    const navigate = useNavigate();
+
+    const handleRegisterClick = () => {
+        navigate('/register');
+    };
 
   return (
     <>
@@ -13,6 +19,8 @@ export const Login = () => {
         <div className="text-center mb-5">
             <img src={Logo} alt="hyper" height={100} className="mb-3" />
             <div className="text-900 text-3xl font-medium mb-3">Bienvenido(a)</div>
+            <span className="text-600 font-medium line-height-3">¿Todavía no tienes una cuenta?</span>
+            <a className="font-medium no-underline ml-2 text-blue-500 cursor-pointer" onClick={handleRegisterClick}>Crear cuenta</a>
         </div>
 
         <div>

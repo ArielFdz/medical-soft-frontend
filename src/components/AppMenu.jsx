@@ -8,8 +8,15 @@ const AppMenu = () => {
 
     // Define las rutas de navegación
     const menuItems = [
-        { label: 'Acceso', icon: 'pi pi-sign-in', command: () => navigate('/login') },
-        { label: 'Directorio', icon: 'pi pi-users', command: () => navigate('/directorio') },
+        {
+            label: 'Acceso',
+            icon: 'pi pi-sign-in',
+            items: [
+                { label: 'Pacientes', icon: 'pi pi-user', command: () => navigate('/login') },
+                { label: 'Doctores', icon: 'pi pi-user', command: () => navigate('/login-doctor') },
+            ],
+        },
+        { label: 'Directorio', icon: 'pi pi-users', command: () => navigate('/directory') },
         { label: 'Contacto', icon: 'pi pi-envelope', command: () => navigate('/contact') },
     ];
 

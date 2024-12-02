@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 export const HomePage = () => {
     const navigate = useNavigate();
 
-    const handleDirectorioClick = () => {
-        navigate('/directorio');
+    const handleDirectoryClick = () => {
+        navigate('/directory');
     };
 
     const handleLoginClick = () => {
@@ -28,7 +28,7 @@ export const HomePage = () => {
                     </p>
 
                     <Button label="Acceso a pacientes" type="button" className="mr-3 p-button-raised" onClick={handleLoginClick} />
-                    <Button label="Directorio" type="button" className="p-button-outlined" onClick={handleDirectorioClick} />
+                    <Button label="Directorio" type="button" className="p-button-outlined" onClick={handleDirectoryClick} />
                 </section>
             </div>
             <div className="col-12 md:col-6 overflow-hidden">

@@ -9,6 +9,7 @@ import { Contact } from './pages/Contact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { AboutUs } from './pages/AboutUs';
 import AppMenu from './components/AppMenu';
+import { LoginDoctor } from './pages/LoginDoctor';
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/directorio" element={<Directory />} />
+            <Route path="/directory" element={<Directory />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/login-doctor" element={<LoginDoctor />} />
             <Route path="/register" element={<Register />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
