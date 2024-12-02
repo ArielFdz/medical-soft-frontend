@@ -15,7 +15,7 @@ export const HomePage = () => {
     }
 
   return (
-    <div>
+    <>
         <div className="grid grid-nogutter surface-0 text-800">
             <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
                 <section>
@@ -35,6 +35,6 @@ export const HomePage = () => {
                 <img src={Imagen} alt="hero-1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
             </div>
         </div>
-    </div>
+    </>
   )
 }
