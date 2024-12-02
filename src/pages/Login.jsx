@@ -1,9 +1,22 @@
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../assets/logo.png'
+import ReusableConfirmDialog from '../components/ReusableConfirmDialog'
 
 export const Login = () => {
+
+    const [dialogVisible, setDialogVisible] = useState(false);
+
+    const handleConfirm = () => {
+        console.log("Confirmado!");
+        setDialogVisible(false);
+    };
+
+    const handleCancel = () => {
+        console.log("Cancelado!");
+        setDialogVisible(false);
+    };
 
   return (
     <>
@@ -22,7 +35,14 @@ export const Login = () => {
             <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
             <InputText id="password" type="password" placeholder="Password" className="w-full mb-3" />
             
-            <Button label="Iniciar sesión" icon="pi pi-user" className="w-full" />
+            <Button label="Iniciar sesión" icon="pi pi-user" className="w-full" onClick={() => setDialogVisible(true)} />
+            <ReusableConfirmDialog
+                visible={dialogVisible}
+                message="¿Estás seguro de que deseas iniciar sesión?"
+                header="Confirmación de inicio de sesión"
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+            />
         </div>
     </div>
 </div>
