@@ -10,6 +10,7 @@ import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { AboutUs } from './pages/AboutUs';
 import AppMenu from './components/AppMenu';
 import { LoginDoctor } from './pages/LoginDoctor';
+import { Patients } from './pages/Patients';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/patients" element={<Patients />} />
           </Routes>
         </main>
       </Router>
