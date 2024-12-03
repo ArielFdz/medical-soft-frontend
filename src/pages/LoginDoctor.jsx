@@ -5,12 +5,14 @@ import React, { useState, useRef } from 'react'
 import Logo from '../assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { logindoctor } from '../services/logindoctor'
+import { useDataDoctoresStore } from '../store/useDataDoctoresStore';
 
 export const LoginDoctor = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({ email: '', password: '' });
     const [errors, setErrors] = useState({});
     const toast = useRef(null);
+    const {userData, setUserData} = useDataDoctoresStore();
 
     const handleRegisterClick = () => {
         navigate('/register');
@@ -38,6 +40,8 @@ export const LoginDoctor = () => {
                 const result = await logindoctor(form);
                 toast.current.show({ severity: 'success', summary: 'Éxito', detail: 'Inicio de sesión exitoso.' });
                 console.log('Inicio de sesión exitoso:', result);
+                setUserData(result);
+                navigate('/');
             } catch (error) {
                 toast.current.show({ severity: 'error', summary: 'Error', detail: 'Credenciales incorrectas.' });
             }
