@@ -3,12 +3,19 @@ import { InputText } from 'primereact/inputtext'
 import React, { useState } from 'react'
 import Logo from '../assets/logo.png'
 import ReusableConfirmDialog from '../components/ReusableConfirmDialog'
+import { useExample } from '../store/useExample'
 
 export const Login = () => {
 
+    const {userData,setUserData} = useExample()
+    
+
+    
     const [dialogVisible, setDialogVisible] = useState(false);
 
     const handleConfirm = () => {
+
+        setUserData('HOLA DESDE LOCAL STORAGE')
         console.log("Confirmado!");
         setDialogVisible(false);
     };
