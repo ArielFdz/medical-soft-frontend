@@ -11,6 +11,7 @@ import { AboutUs } from './pages/AboutUs';
 import AppMenu from './components/AppMenu';
 import { LoginDoctor } from './pages/LoginDoctor';
 import { Patients } from './pages/Patients';
+import MyCalendar from './components/MyCalendar';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/patients" element={<Patients />} />
+            <Route path="/appointments" element={<MyCalendar />} />
           </Routes>
         </main>
       </Router>
