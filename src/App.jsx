@@ -12,6 +12,7 @@ import AppMenu from './components/AppMenu';
 import { LoginDoctor } from './pages/LoginDoctor';
 import { Patients } from './pages/Patients';
 import { DashBoardPatients } from './pages/DashboradPatients';
+import { Files } from './pages/Files';
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/misCitas" element={<DashBoardPatients />} />
+            <Route path="/evidencias/:id" element={<Files />} />
+
           </Routes>
         </main>
       </Router>
