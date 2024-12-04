@@ -11,29 +11,31 @@ import { AboutUs } from './pages/AboutUs';
 import AppMenu from './components/AppMenu';
 import { LoginDoctor } from './pages/LoginDoctor';
 import { Patients } from './pages/Patients';
+import { Appointment } from './pages/Appointment'
 
 function App() {
   return (
     <>
-    <div className="app-container">
-      <Router>
-      <AppMenu />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/directory" element={<Directory />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/login-doctor" element={<LoginDoctor />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/patients" element={<Patients />} />
-          </Routes>
-        </main>
-      </Router>
-      <Footer />
-    </div>
+      <div className="app-container">
+        <Router>
+          <AppMenu />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/directory" element={<Directory />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/login-doctor" element={<LoginDoctor />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/patients" element={<Patients />} />
+              <Route path="/appointment-test" element={<Appointment />} />
+            </Routes>
+          </main>
+        </Router>
+        <Footer />
+      </div>
     </>
   )
 }
