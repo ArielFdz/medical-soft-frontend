@@ -13,6 +13,7 @@ import { LoginDoctor } from './pages/LoginDoctor';
 import { Patients } from './pages/Patients';
 import { DashBoardPatients } from './pages/DashboradPatients';
 import { Files } from './pages/Files';
+import MyCalendar from './components/MyCalendar';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
             <Route path="/patients" element={<Patients />} />
             <Route path="/misCitas" element={<DashBoardPatients />} />
             <Route path="/evidencias/:id" element={<Files />} />
-
+            <Route path="/appointments" element={<MyCalendar />} />
           </Routes>
         </main>
       </Router>
