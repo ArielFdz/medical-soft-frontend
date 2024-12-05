@@ -18,6 +18,7 @@ const AppMenu = () => {
         },
         { label: 'Directorio', icon: 'pi pi-users', command: () => navigate('/directory') },
         { label: 'Contacto', icon: 'pi pi-envelope', command: () => navigate('/contact') },
+        { label: 'Cita', icon: 'pi pi-calendar', command: () => navigate('/appointment-test') },
     ];
 
     const logo = (
