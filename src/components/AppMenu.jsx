@@ -24,7 +24,7 @@ const AppMenu = () => {
     if (userDataPacientes) {
         menuItems = [
             ...menuItems,
-            { label: 'Mis Citas', icon: 'pi pi-calendar', command: () => navigate('/myappointments') },
+            { label: 'Mis Médicos', icon: 'pi pi-calendar', command: () => navigate('/mydoctors') },
         ];
     }
 

@@ -107,12 +107,14 @@ export default function ModalFile({ visible, setVisible }) {
         {errors.description && <small className="p-error">{errors.description}</small>}
 
         <FileUpload
-       
           ref={fileUploadRef}
           name="files"
           accept="image/*"
           maxFileSize={1000000}
           emptyTemplate={<p className="m-0">Arrastra y suelta archivos aquí para subirlos.</p>}
+          chooseLabel="Elegir archivo"
+          uploadLabel={"Subir"}
+          cancelLabel="Cancelar"
         />
       </Dialog>
     </>

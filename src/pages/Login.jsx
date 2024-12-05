@@ -83,7 +83,7 @@ export const Login = () => {
                         {errors.email && <small className="p-error">{errors.email}</small>}
 
                         <label htmlFor="dateOfBirth" className="block text-900 font-medium mb-2">Fecha de nacimiento</label>
-                        <Calendar  className={`w-full mb-3 ${errors.email ? 'p-invalid' : ''}`} id='dateOfBirth' value={date}  onChange={handleInputChange} />
+                        <Calendar placeholder='Fecha de nacimiento'  className={`w-full mb-3 ${errors.email ? 'p-invalid' : ''}`} id='dateOfBirth' value={date}  onChange={handleInputChange} />
                         {errors.dateOfBirth && <small className="p-error">{errors.dateOfBirth}</small>}
 
                         <Button label="Iniciar sesión" icon="pi pi-user" className="w-full" onClick={handleSubmit} />

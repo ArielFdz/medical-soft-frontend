@@ -18,3 +18,8 @@ body {
   border-radius: 10px;
   margin-bottom: 1rem;
 }
+
+.chip-size ul
+{
+  width: 100%;
+}

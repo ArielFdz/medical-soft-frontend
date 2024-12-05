@@ -29,7 +29,7 @@ export const ModalAppointmentsById = ({ paciente, visible, setVisible }) => {
     }, [paciente, visible]);
 
     const handleVerTratamiento = (cita) => {
-        navigate(`/evidencias/${cita?.id}`)
+        navigate(`/treatments/${cita?.id}`)
     };
 
     const handleVerArchivos = (cita) => {
@@ -41,18 +41,18 @@ export const ModalAppointmentsById = ({ paciente, visible, setVisible }) => {
             <Dialog header={"Citas"} visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
                 <div className="p-d-flex p-jc-between p-ai-center p-mb-3">
                     <div className='flex justify-content-end'>
-                    <InputText 
-                        type="search" 
-                        onInput={(e) => setGlobalFilter(e.target.value)} 
-                        placeholder="Buscar..." 
-                        className="p-inputtext-sm " 
-                    /></div>
+                        <InputText
+                            type="search"
+                            onInput={(e) => setGlobalFilter(e.target.value)}
+                            placeholder="Buscar..."
+                            className="p-inputtext-sm "
+                        /></div>
                 </div>
-                <DataTable 
-                    value={citasxPaciente} 
-                    paginator 
-                    rows={5} 
-                    rowsPerPageOptions={[5, 10, 25, 50]} 
+                <DataTable
+                    value={citasxPaciente}
+                    paginator
+                    rows={5}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
                     className='mt-2'
                     globalFilter={globalFilter}  // Se aplica el filtro global
                 >
@@ -60,17 +60,17 @@ export const ModalAppointmentsById = ({ paciente, visible, setVisible }) => {
                     <Column field="status" header="Estatus" sortable />
                     <Column header="Acciones" body={(rowData) => (
                         <div className="p-d-flex p-ai-center">
-                            <Button 
-                                label="Ver tratamiento" 
-                                icon="pi pi-file" 
-                                onClick={() => handleVerTratamiento(rowData)} 
-                                className="p-button-sm button-info mr-2" 
+                            <Button
+                                label="Administrar tratamiento"
+                                icon="pi pi-file"
+                                onClick={() => handleVerTratamiento(rowData)}
+                                className="p-button-sm button-info mr-2"
                             />
-                            <Button 
-                                label="Ver archivos" 
-                                icon="pi pi-image" 
-                                onClick={() => handleVerArchivos(rowData)} 
-                                className="p-button-sm button-info" 
+                            <Button
+                                label="Adjuntar evidencia"
+                                icon="pi pi-image"
+                                onClick={() => handleVerArchivos(rowData)}
+                                className="p-button-sm button-info"
                             />
                         </div>
                     )} />
