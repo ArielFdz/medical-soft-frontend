@@ -27,8 +27,8 @@ export const Register = () => {
   const toast = React.useRef(null);
 
   const items = [
-    { name: 'OTORRINOLARINGÓLOGO', val: 'OTORRINOLARINGÓLOGO' },
-    { name: 'OFTALMÓLOGO', val: 'OFTALMÓLOGO' },
+    { name: 'ODONTÓLOGO', val: 'ODONTÓLOGO' },
+    { name: 'GASTROENTERÓLOGO', val: 'GASTROENTERÓLOGO' },
     { name: 'CARDIÓLOGO', val: 'CARDIÓLOGO' }
   ];
 
