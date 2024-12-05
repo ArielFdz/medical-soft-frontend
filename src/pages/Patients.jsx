@@ -8,10 +8,12 @@ import { getPatients } from '../services/patientService';
 import { useDataDoctoresStore } from '../store/useDataDoctoresStore';
 import { asignPatientToDoctor } from '../services/patient-doctor';
 import { Toast } from 'primereact/toast';
+import { InputText } from 'primereact/inputtext'; // Importa el InputText para el buscador
 
 export const Patients = () => {
     const [visible, setVisible] = useState(false);
     const [patients, setPatients] = useState([]);
+    const [globalFilter, setGlobalFilter] = useState(''); // Estado para el filtro global
     const { userData } = useDataDoctoresStore(); 
     const toast = React.useRef(null);
 
@@ -58,7 +60,23 @@ export const Patients = () => {
             <Toast ref={toast} />
             <Button label="Agregar paciente" icon="pi pi-external-link" onClick={() => setVisible(true)} />
             
-            <DataTable value={patients} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} className='mt-5'>
+            {/* Buscador */}
+            <div className="flex justify-content-end mt-3">
+                <InputText 
+                    value={globalFilter} 
+                    onChange={(e) => setGlobalFilter(e.target.value)} 
+                    placeholder="Buscar..." 
+                />
+            </div>
+
+            <DataTable 
+                value={patients} 
+                paginator 
+                rows={5} 
+                rowsPerPageOptions={[5, 10, 25, 50]} 
+                className='mt-5'
+                globalFilter={globalFilter} // Se pasa el filtro global
+            >
                 <Column field="name" header="Nombre" sortable />
                 <Column field="email" header="Correo Electrónico" sortable />
                 <Column field="dateOfBirth" header="Fecha de Nacimiento" />
