@@ -5,9 +5,8 @@ import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import { useParams } from "react-router-dom";
-import { registerPatient } from "../services/patientService";
-import { useDataDoctoresStore } from "../store/useDataDoctoresStore";
 import { uploadFile } from "../services/files";
+import { useDataDoctoresStore } from "../store/useDataDoctoresStore";
 
 export default function ModalFile({ visible, setVisible }) {
   const { userData } = useDataDoctoresStore();
@@ -21,6 +20,7 @@ export default function ModalFile({ visible, setVisible }) {
   });
 
   const [errors, setErrors] = useState({});
+  const [confirmVisible, setConfirmVisible] = useState(false); // Estado para el diálogo de confirmación
 
   const validateForm = () => {
     const newErrors = {};
@@ -33,42 +33,45 @@ export default function ModalFile({ visible, setVisible }) {
 
   const handleSubmit = async () => {
     if (validateForm()) {
-      const formData = new FormData();
+      setConfirmVisible(true); // Muestra el diálogo de confirmación
+    }
+  };
 
-      // Añadir los valores de los inputs
-      formData.append("description", formValues.description);
-      formData.append("idAppoinment", formValues.idAppoinment);
+  const handleConfirmSubmit = async () => {
+    const formData = new FormData();
 
-      // Añadir los archivos seleccionados
-      const uploadedFiles = fileUploadRef.current.getFiles();
-      console.log(uploadedFiles)
-      uploadedFiles.forEach((file) => {
-  
-        formData.append("file", file);
+    // Añadir los valores de los inputs
+    formData.append("description", formValues.description);
+    formData.append("idAppoinment", formValues.idAppoinment);
+
+    // Añadir los archivos seleccionados
+    const uploadedFiles = fileUploadRef.current.getFiles();
+    uploadedFiles.forEach((file) => {
+      formData.append("file", file);
+    });
+
+    setConfirmVisible(false);
+    try {
+      // Realizar el envío de datos
+      await uploadFile(formData, userData.jwt);
+      toast.current.show({
+        severity: "success",
+        summary: "Éxito",
+        detail: "Registro exitoso.",
       });
-
-      try {
-        // Realizar el envío de datos
-        await uploadFile(formData, userData.jwt);
-        toast.current.show({
-          severity: "success",
-          summary: "Éxito",
-          detail: "Registro exitoso.",
-        });
-        setVisible(false);
-        setFormValues({
-          description: "",
-          idAppoinment: id,
-        });
-        fileUploadRef.current.clear(); // Limpiar archivos
-      } catch (error) {
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: "No se pudo completar el registro.",
-        });
-        console.error("Error al enviar los datos:", error);
-      }
+      setVisible(false);
+      setFormValues({
+        description: "",
+        idAppoinment: id,
+      });
+      fileUploadRef.current.clear(); // Limpiar archivos
+    } catch (error) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "No se pudo completar el registro.",
+      });
+      console.error("Error al enviar los datos:", error);
     }
   };
 
@@ -84,11 +87,18 @@ export default function ModalFile({ visible, setVisible }) {
     </div>
   );
 
+  const confirmFooterContent = (
+    <div>
+      <Button label="Cancelar" icon="pi pi-times" onClick={() => setConfirmVisible(false)} className="p-button-text" />
+      <Button label="Confirmar" icon="pi pi-check" onClick={handleConfirmSubmit} autoFocus />
+    </div>
+  );
+
   return (
     <>
       <Toast ref={toast} />
       <Dialog
-        header="Crear archivo"
+        header="Adjuntar evidencia"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={() => setVisible(false)}
@@ -116,6 +126,17 @@ export default function ModalFile({ visible, setVisible }) {
           uploadLabel={"Subir"}
           cancelLabel="Cancelar"
         />
+      </Dialog>
+
+      {/* Dialogo de confirmación */}
+      <Dialog
+        header="Confirmar envío"
+        visible={confirmVisible}
+        style={{ width: "40vw" }}
+        onHide={() => setConfirmVisible(false)}
+        footer={confirmFooterContent}
+      >
+        <p>¿Estás seguro de que deseas enviar los archivos y la descripción?</p>
       </Dialog>
     </>
   );
