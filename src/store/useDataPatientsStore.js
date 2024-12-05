@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export const useDataDoctoresStore = create(
+export const useDataPatientsStore = create(
   persist(
     (set) => ({
       userData: null,
@@ -9,11 +9,11 @@ export const useDataDoctoresStore = create(
       setUserData: (userData) => set({ userData, auth: true }),
       clearUserData: () => {
         set({ userData: null, auth: false });
-        localStorage.removeItem("user-data");
+        localStorage.removeItem("patient-data");
       },
     }),
     {
-      name: "user-data",
+      name: "patient-data",
       getStorage: () => localStorage,
     }
   )

@@ -8,7 +8,7 @@ export const Directory = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const specialties = ["OTORRINOLARINGÓLOGO", "OFTALMÓLOGO", "CARDIÓLOGO"]; // Especialidades configuradas previamente.
+    const specialties = ["ODONTÓLOGO", "GASTROENTERÓLOGO", "CARDIÓLOGO"]; // Especialidades configuradas previamente.
 
     useEffect(() => {
         const fetchData = async () => {
