@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';

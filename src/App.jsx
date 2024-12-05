@@ -14,6 +14,7 @@ import { Patients } from './pages/Patients';
 import { DashBoardPatients } from './pages/DashboradPatients';
 import { Files } from './pages/Files';
 import MyCalendar from './components/MyCalendar';
+import { MyPatients } from './pages/MyPatients';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/misCitas" element={<DashBoardPatients />} />
             <Route path="/evidencias/:id" element={<Files />} />
             <Route path="/appointments" element={<MyCalendar />} />
+            <Route path="/mypatients" element={<MyPatients />} />
           </Routes>
         </main>
       </Router>
