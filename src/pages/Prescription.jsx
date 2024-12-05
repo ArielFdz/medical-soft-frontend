@@ -78,9 +78,9 @@ export const Files = () => {
 
     return (
         <>
-            <h1>Archivos</h1>
+            <h1>Evidencias citas</h1>
             <Toast ref={toast} />
-            <Button label="Crear archivo" icon="pi pi-external-link" onClick={() => setVisible(true)} />
+            <Button label="Adjuntar evidencia" icon="pi pi-external-link" onClick={() => setVisible(true)} />
             
             <DataTable value={patients} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} className='mt-5'>
                 <Column field="fileRecord.description" header="Descripcion" sortable />

@@ -61,13 +61,13 @@ export const ModalAppointmentsById = ({ paciente, visible, setVisible }) => {
                     <Column header="Acciones" body={(rowData) => (
                         <div className="p-d-flex p-ai-center">
                             <Button
-                                label="Ver tratamiento"
+                                label="Administrar tratamiento"
                                 icon="pi pi-file"
                                 onClick={() => handleVerTratamiento(rowData)}
                                 className="p-button-sm button-info mr-2"
                             />
                             <Button
-                                label="Ver archivos"
+                                label="Adjuntar evidencia"
                                 icon="pi pi-image"
                                 onClick={() => handleVerArchivos(rowData)}
                                 className="p-button-sm button-info"
