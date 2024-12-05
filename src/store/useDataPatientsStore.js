@@ -7,11 +7,14 @@ export const useDataPatientsStore = create(
       userData: null,
       auth: false,
       setUserData: (userData) => set({ userData, auth: true }),
-      clearUserData: () => set({ userData: null, auth: false }),
+      clearUserData: () => {
+        set({ userData: null, auth: false });
+        localStorage.removeItem("patient-data");
+      },
     }),
     {
-      name: "patient-data", // Nombre del storage en localStorage
-      getStorage: () => localStorage, // Usa localStorage como almacenamiento
+      name: "patient-data",
+      getStorage: () => localStorage,
     }
   )
 );
