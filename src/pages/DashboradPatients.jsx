@@ -3,10 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Divider } from 'primereact/divider';
 import { fetchDoctorsBySpecialtyAndUser } from '../services/dashboardPatients';
 import { useDataPatientsStore } from '../store/useDataPatientsStore';
+import { getAppointmentsOpen } from '../services/appointmentService';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 export const DashBoardPatients = () => {
     const { userData } = useDataPatientsStore();  // Obtener datos del usuario
     const [doctorData, setDoctorData] = useState([]);
+    const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -21,7 +25,9 @@ export const DashBoardPatients = () => {
                 const doctorPromises = specialties.map(async (specialty) => {
                     // Llamada a la API para obtener los médicos por especialidad y correo del usuario
                     const response = await fetchDoctorsBySpecialtyAndUser(specialty, userData.email);
-                    
+                    const responseAppointments = await getAppointmentsOpen(userData)
+                console.log({responseAppointments})
+                setAppointments(responseAppointments)
                     // Verificar la respuesta de la API
                     console.log('Médicos obtenidos para especialidad', specialty, response);
                     
@@ -70,7 +76,11 @@ export const DashBoardPatients = () => {
 
     return (
         <>
-            <h1>Mis médicos</h1>
+        <h1>Mi información</h1>
+        <div className='flex w-full'>
+            
+            <div className=' flex-column w-6 p-2'>
+                <h1>Consultando con:</h1>
             <Accordion>
                 {doctorData.map((doctor, index) => (
                     <AccordionTab key={index} header={`Dr. ${doctor.name} - ${doctor.specialty}`}>
@@ -89,6 +99,34 @@ export const DashBoardPatients = () => {
                     </AccordionTab>
                 ))}
             </Accordion>
+
+            </div>
+                
+
+            <div className=' flex-column w-6 p-2'>
+            <h1>Citas próximas</h1>
+            <DataTable
+                value={appointments} 
+                paginator 
+                rows={5} 
+                rowsPerPageOptions={[5, 10, 25, 50]} 
+                className=' w-full '
+            >
+                <Column field="patientWithDoctor.doctor.name" header="Médico" sortable />
+                <Column field="patientWithDoctor.doctor.specialty" header="Especialidad" sortable />
+                <Column field="patientWithDoctor.doctor.consultationFee" header="Consultorio" sortable />
+                <Column field="appointmentDate" header="Fecha" sortable />
+                <Column field="appointmentTime" header="Hora de inicio" sortable />
+                <Column field="appointmentTimeEnd" header="Hora de finalizacion" sortable />
+                
+                
+            </DataTable>
+            </div>
+            
+        </div>
+          
+            
+
         </>
     );
 };

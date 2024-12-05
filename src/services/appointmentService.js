@@ -92,3 +92,29 @@ export const getAppointmentsxPatient = async (jwt, id) => {
         throw error;
     }
 };
+
+
+
+export const getAppointmentsOpen = async (userdata) => {
+    try {
+        console.log({userdata})
+        const response = await fetch(`${BASE_URL}/appointments/open?email=${userdata.email}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al solicitar el listado de pacientes:', error);
+        throw error;
+    }
+};
+
