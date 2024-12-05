@@ -11,7 +11,7 @@ export const DashBoardPatients = () => {
     const [error, setError] = useState(null);
 
     // Especialidades configuradas previamente.
-    const specialties = ["OTORRINOLARINGÓLOGO", "OFTALMÓLOGO", "CARDIÓLOGO"];
+    const specialties = ["ODONTÓLOGO", "GASTROENTERÓLOGO", "CARDIÓLOGO"];
 
     useEffect(() => {
         const fetchDoctorData = async () => {

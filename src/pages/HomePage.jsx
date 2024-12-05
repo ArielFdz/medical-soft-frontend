@@ -2,9 +2,13 @@ import { Button } from 'primereact/button'
 import React from 'react'
 import Imagen from '../assets/medico-home.png'
 import { useNavigate } from 'react-router-dom';
+import { useDataDoctoresStore } from '../store/useDataDoctoresStore';
+import { useDataPatientsStore } from '../store/useDataPatientsStore';
 
 export const HomePage = () => {
     const navigate = useNavigate();
+    const { userData: userDataDoctores } = useDataDoctoresStore(); 
+    const { userData: userDataPacientes } = useDataPatientsStore(); 
 
     const handleDirectoryClick = () => {
         navigate('/directory');
@@ -26,9 +30,13 @@ export const HomePage = () => {
                         En nuestra clínica, contamos con un equipo de profesionales altamente capacitados y la tecnología más avanzada para brindarte el mejor servicio médico. 
                         ¡Tu bienestar es nuestra prioridad!
                     </p>
-
+                    {(userDataDoctores == null && userDataPacientes == null) 
+                    ? 
+                    <>
                     <Button label="Acceso a pacientes" type="button" className="mr-3 p-button-raised" onClick={handleLoginClick} />
                     <Button label="Directorio" type="button" className="p-button-outlined" onClick={handleDirectoryClick} />
+                    </>: <></>}
+                    
                 </section>
             </div>
             <div className="col-12 md:col-6 overflow-hidden">

@@ -70,3 +70,25 @@ export const putAppointment = async (formData, jwt, id) => {
         throw error;
     }
 };
+
+export const getAppointmentsxPatient = async (jwt, id) => {
+    try {
+        const response = await fetch(`${BASE_URL}/appointments?status=FINALIZADA&idpacient=${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al solicitar el listado de pacientes:', error);
+        throw error;
+    }
+};
