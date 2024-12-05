@@ -46,7 +46,7 @@ function App() {
             {/* Rutas de pacientes */}
             {userDataPacientes && (
               <>
-                <Route path="/myappointments" element={<DashBoardPatients />} />
+                <Route path="/mydoctors" element={<DashBoardPatients />} />
               </>
             )}
 

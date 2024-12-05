@@ -70,7 +70,7 @@ export const DashBoardPatients = () => {
 
     return (
         <>
-            <h1>Mi médicos</h1>
+            <h1>Mis médicos</h1>
             <Accordion>
                 {doctorData.map((doctor, index) => (
                     <AccordionTab key={index} header={`Dr. ${doctor.name} - ${doctor.specialty}`}>
