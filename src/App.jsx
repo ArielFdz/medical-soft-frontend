@@ -11,31 +11,35 @@ import { AboutUs } from './pages/AboutUs';
 import AppMenu from './components/AppMenu';
 import { LoginDoctor } from './pages/LoginDoctor';
 import { Patients } from './pages/Patients';
-import { Appointment } from './pages/Appointment'
+import { DashBoardPatients } from './pages/DashboradPatients';
+import { Files } from './pages/Files';
+import MyCalendar from './components/MyCalendar';
 
 function App() {
   return (
     <>
-      <div className="app-container">
-        <Router>
-          <AppMenu />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/directory" element={<Directory />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/login-doctor" element={<LoginDoctor />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/patients" element={<Patients />} />
-              <Route path="/appointment-test" element={<Appointment />} />
-            </Routes>
-          </main>
-        </Router>
-        <Footer />
-      </div>
+    <div className="app-container">
+      <Router>
+      <AppMenu />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/directory" element={<Directory />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/login-doctor" element={<LoginDoctor />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/patients" element={<Patients />} />
+            <Route path="/misCitas" element={<DashBoardPatients />} />
+            <Route path="/evidencias/:id" element={<Files />} />
+            <Route path="/appointments" element={<MyCalendar />} />
+          </Routes>
+        </main>
+      </Router>
+      <Footer />
+    </div>
     </>
   )
 }

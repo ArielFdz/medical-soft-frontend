@@ -23,3 +23,26 @@ export const asignPatientToDoctor = async (formData, jwt) => {
         throw error;
     }
 };
+
+export const getPatientsxDoctor = async (jwt) => {
+    
+    try {
+        const response = await fetch(`${BASE_URL}/patient-doctors`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al solicitar el listado de pacientes:', error);
+        throw error;
+    }
+};
