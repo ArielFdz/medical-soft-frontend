@@ -18,6 +18,7 @@ import { MyPatients } from './pages/MyPatients';
 import { useDataPatientsStore } from './store/useDataPatientsStore';
 import { useDataDoctoresStore } from './store/useDataDoctoresStore';
 import { Logout } from './components/Logout';
+import { Treatments } from './pages/Treatments';
 
 function App() {
   const { userData: userDataDoctores } = useDataDoctoresStore();
@@ -36,6 +37,7 @@ function App() {
               <>
                 <Route path="/patients" element={<Patients />} />
                 <Route path="/evidencias/:id" element={<Files />} />
+                <Route path="/treatments/:id" element={<Treatments />} />
                 <Route path="/appointments" element={<MyCalendar />} />
                 <Route path="/mypatients" element={<MyPatients />} />
               </>
