@@ -45,7 +45,7 @@ export const Treatments = () => {
             setSvgFile(svg);
             if (svgFile != "") {
                 svgContainer.innerHTML = svg;
-                asignarFuncionalidadAElementos();
+                asignarFuncionalidadAElementos();            
             } else {
                 console.log("No se pudo obtener el svg");
             }
@@ -56,8 +56,8 @@ export const Treatments = () => {
             if (localTreatment.treatments.length > 0) {
 
                 console.log(localTreatment);
-                //localTreatment.treatments[0]['partesTocadasDuranteElTratamiento'] = JSON.parse(localTreatment.treatments[0].partesTocadasDuranteElTratamiento)
-                selectedElements.current = JSON.parse(localTreatment.treatments[0].partesTocadasDuranteElTratamiento)
+                selectedElements.current = JSON.parse(localTreatment.treatments[0].partesTocadasDuranteElTratamiento);
+                pintarElementosSeleccionados();
                 setTreatmentForm((prev) => ({ ...prev, ...localTreatment.treatments[0] }))
             } else {
                 console.log("No se encontró el tratamiento");
@@ -82,7 +82,6 @@ export const Treatments = () => {
 
     const asignarFuncionalidadAElementos = () => {
         const svgElement = svgContainer.querySelector("#elemento-svg");
-        /* svgElement.style.width = "100%";*/
         svgElement.style.height = "75vh";
         svgElement.style.preserveAspectRatio = "xMidYMid meet";
         if (svgElement) {
@@ -112,7 +111,7 @@ export const Treatments = () => {
                     }
                 });
             });
-            pintarElementosSeleccionados();
+            
         } else {
             console.log("No se encontró el elemento SVG");
         }
