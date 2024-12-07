@@ -7,6 +7,8 @@ import { InputText } from "primereact/inputtext";
 import { createTreatment, getTreatment, updateTreatment } from "../services/treatmentService";
 import { Chips } from "primereact/chips";
 import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { Toast } from 'primereact/toast';
 
 export const Treatments = () => {
 
@@ -19,6 +21,7 @@ export const Treatments = () => {
     const svgContainer = document.getElementById("svgContainer");
     const selectedElements = useRef({});
     const specialityElements = specialities[doctorSpeciality];
+    const toast = useRef(null);
 
     const [treatmentForm, setTreatmentForm] = useState({
         description: "",
@@ -40,6 +43,9 @@ export const Treatments = () => {
         historialQuirurgico: '',
         enfermedadesHeredoParentales: ''
     });
+
+    // State for dialog visibility
+    const [visibleDialog, setVisibleDialog] = useState(false);
 
     useEffect(() => {
 
@@ -150,6 +156,14 @@ export const Treatments = () => {
             formErrors.enfermedadesHeredoParentales = "Debe agregar al menos una enfermedad hereditaria";
         }
 
+        if(!treatmentForm.partesTocadasDuranteElTratamiento){
+            toast.current.show({ severity: 'error', summary: 'Error', detail: `Debe seleccionar la sección manipulada en el tratamiento` });
+            setVisibleDialog(false);
+            return;
+        }
+
+        setVisibleDialog(false);
+
         // Si hay errores, actualizar el estado de errores y detener el envío
         if (Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
@@ -173,6 +187,7 @@ export const Treatments = () => {
 
     return (
         <>
+            <Toast ref={toast} />
             <h1>Tratamientos realizados</h1>
             <div className="container">
                 <div className="divider" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
@@ -211,7 +226,7 @@ export const Treatments = () => {
                                 <Chips 
                                     style={{ width: '100%' }} 
                                     value={treatmentForm.alergias} 
-                                    onChange={(e) => setTreatmentForm((prev) => ({ ...prev, ["alergias"]: e.value }))} 
+                                    onChange={(e) => setTreatmentForm({ ...treatmentForm, alergias: e.value })} 
                                 />
                             </div>
                             {errors.alergias && <small className="p-error">{errors.alergias}</small>}
@@ -223,7 +238,7 @@ export const Treatments = () => {
                                 <Chips 
                                     style={{ width: '100%' }} 
                                     value={treatmentForm.enfermedadesCronicas} 
-                                    onChange={(e) => setTreatmentForm((prev) => ({ ...prev, ["enfermedadesCronicas"]: e.value }))} 
+                                    onChange={(e) => setTreatmentForm({ ...treatmentForm, enfermedadesCronicas: e.value })} 
                                 />
                             </div>
                             {errors.enfermedadesCronicas && <small className="p-error">{errors.enfermedadesCronicas}</small>}
@@ -235,31 +250,50 @@ export const Treatments = () => {
                                 <Chips 
                                     style={{ width: '100%' }} 
                                     value={treatmentForm.historialQuirurgico} 
-                                    onChange={(e) => setTreatmentForm((prev) => ({ ...prev, ["historialQuirurgico"]: e.value }))} 
+                                    onChange={(e) => setTreatmentForm({ ...treatmentForm, historialQuirurgico: e.value })} 
                                 />
                             </div>
                             {errors.historialQuirurgico && <small className="p-error">{errors.historialQuirurgico}</small>}
 
                             <label htmlFor="enfermedadesHeredoParentales" className="block text-900 font-medium mb-2 mt-2">
-                                Enfermedades hereditarias
+                                Enfermedades heredodependientes
                             </label>
                             <div style={{ width: '100%' }} className="chip-size">
                                 <Chips 
                                     style={{ width: '100%' }} 
                                     value={treatmentForm.enfermedadesHeredoParentales} 
-                                    onChange={(e) => setTreatmentForm((prev) => ({ ...prev, ["enfermedadesHeredoParentales"]: e.value }))} 
+                                    onChange={(e) => setTreatmentForm({ ...treatmentForm, enfermedadesHeredoParentales: e.value })} 
                                 />
                             </div>
                             {errors.enfermedadesHeredoParentales && <small className="p-error">{errors.enfermedadesHeredoParentales}</small>}
-
-                            <div className="mt-3">
-                            <Button label="Cancelar" onClick={() => navigate('/mypatients')} className="mr-5 btn-info" />
-                            <Button label="Guardar" onClick={handleSubmit} />
-                        </div>
+                            
+                            <div className="p-d-flex p-jc-between mt-3">
+                                <Button label="Cancelar" onClick={() => navigate('/mypatients')} className="mr-5 btn-info" />
+                                <Button 
+                                    label="Guardar" 
+                                    icon="pi pi-save" 
+                                    onClick={() => setVisibleDialog(true)} 
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Confirmation Dialog */}
+            <Dialog 
+                visible={visibleDialog} 
+                header="Confirmación"
+                footer={
+                    <>
+                        <Button label="Cancelar" icon="pi pi-times" onClick={() => setVisibleDialog(false)} />
+                        <Button label="Confirmar" icon="pi pi-check" onClick={handleSubmit} />
+                    </>
+                }
+                onHide={() => setVisibleDialog(false)}
+            >
+                ¿Está seguro de que desea guardar el tratamiento?
+            </Dialog>
         </>
     );
 };

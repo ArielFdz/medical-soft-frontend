@@ -207,6 +207,43 @@ export const specialities = {
             lado: "Central",
             color: "#ee8a78"
         },
+    },
+    "cardiologo": {
+        "elemento-1": {
+            elemento: "Vena cava superior",
+            lado: "izquierdo",
+            color: "#698fbfff"
+        },
+        "elemento-2": {
+            elemento: "Arteria aorta",
+            lado: "central",
+            color: "#f6a2a1ff"
+        },
+        "elemento-3": {
+            elemento: "Arteria pulmonar",
+            lado: "derecha",
+            color: "#3f6eb4ff"
+        },
+        "elemento-4": {
+            elemento: "Aurícula derecha",
+            lado: "derecho",
+            color: "#a92429ff"
+        },
+        "elemento-5": {
+            elemento: "Ventrículo izquierdo",
+            lado: "izquierdo",
+            color: "#9e0b0cff"
+        },
+        "elemento-6": {
+            elemento: "Ventrículo derecho",
+            lado: "derecho",
+            color: "#a92429ff"
+        },
+        "elemento-7": {
+            elemento: "Aurícula izquierda",
+            lado: "izquierdo",
+            color: "#a92429ff"
+        },
     }
 
 }

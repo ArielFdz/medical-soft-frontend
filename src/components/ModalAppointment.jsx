@@ -16,6 +16,7 @@ export default function ModalAppointment({ visible, setVisible, date }) {
     const [selectedPatient, setSelectedPatient] = useState(null);
     const [appointmentDate, setAppointmentDate] = useState(date?.start);
     const [errors, setErrors] = useState({});
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false); // Estado para el diálogo de confirmación
     const toast = React.useRef(null);
 
     useEffect(() => {
@@ -69,6 +70,7 @@ export default function ModalAppointment({ visible, setVisible, date }) {
     };
 
     const handleSubmit = async () => {
+        setShowConfirmDialog(false);
         if (validateForm()) {
             const formValues = {
                 idPatientWithDoctor: selectedPatient,
@@ -90,7 +92,15 @@ export default function ModalAppointment({ visible, setVisible, date }) {
     const footerContent = (
         <div>
             <Button label="Cancelar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
-            <Button label="Agendar" icon="pi pi-check" onClick={handleSubmit} autoFocus />
+            <Button label="Confirmar" icon="pi pi-check" onClick={() => setShowConfirmDialog(true)} autoFocus />
+        </div>
+    );
+
+    // Diálogo de confirmación
+    const confirmDialogFooter = (
+        <div>
+            <Button label="Cancelar" icon="pi pi-times" onClick={() => setShowConfirmDialog(false)} className="p-button-text" />
+            <Button label="Confirmar" icon="pi pi-check" onClick={handleSubmit} autoFocus />
         </div>
     );
 
@@ -98,6 +108,7 @@ export default function ModalAppointment({ visible, setVisible, date }) {
         <>
             <Toast ref={toast} />
 
+            {/* Diálogo para agendar cita */}
             <Dialog header="Agendar cita" visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }} footer={footerContent}>
                 <label htmlFor="idPatientWithDoctor" className="block text-900 font-medium mb-2">Paciente</label>
                 <Dropdown
@@ -139,6 +150,16 @@ export default function ModalAppointment({ visible, setVisible, date }) {
                     timeOnly
                     disabled
                 />
+            </Dialog>
+
+            {/* Diálogo de confirmación */}
+            <Dialog 
+                header="Confirmación" 
+                visible={showConfirmDialog} 
+                onHide={() => setShowConfirmDialog(false)} 
+                footer={confirmDialogFooter}
+            >
+                <p>¿Estás seguro de que deseas agendar esta cita?</p>
             </Dialog>
         </>
     );

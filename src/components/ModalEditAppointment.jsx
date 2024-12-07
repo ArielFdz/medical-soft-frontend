@@ -1,5 +1,5 @@
 import { Dialog } from 'primereact/dialog';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Calendar } from "primereact/calendar";
 import { Button } from 'primereact/button';
 import { useDataDoctoresStore } from '../store/useDataDoctoresStore';
@@ -15,17 +15,27 @@ export const ModalEditAppointment = ({ visible, setVisible, data }) => {
     const [timeStart, setTimeStart] = useState(null);
     const [timeEnd, setTimeEnd] = useState(null);
     const [patientsxDoctor, setPatientsxDoctor] = useState([]);
+    const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+    const [confirmationAction, setConfirmationAction] = useState(null); // Store the action that will be confirmed
     const toast = React.useRef(null);
-
-    console.log();
 
     const footerContent = data?.appointment?.status == 'PENDIENTE' ? (
         <div>
-            <Button label="Cancelar cita" icon="pi pi-times" onClick={() => handleSubmit('CANCELADA')} />
-            <Button label="Editar cita" icon="pi pi-pencil" onClick={() => handleSubmit('PENDIENTE')} />
-            <Button label="Completar cita" icon="pi pi-check" onClick={() => handleSubmit('FINALIZADA')} autoFocus />
+            <Button label="Cancelar cita" icon="pi pi-times" onClick={() => confirmAction('CANCELADA')} />
+            <Button label="Editar cita" icon="pi pi-pencil" onClick={() => confirmAction('PENDIENTE')} />
+            <Button label="Completar cita" icon="pi pi-check" onClick={() => confirmAction('FINALIZADA')} autoFocus />
         </div>
     ) : null;
+
+    const confirmAction = (status) => {
+        setConfirmationAction(status);
+        setShowConfirmationDialog(true); // Show the confirmation dialog
+    };
+
+    const handleConfirmation = () => {
+        handleSubmit(confirmationAction);
+        setShowConfirmationDialog(false); // Hide the confirmation dialog after action
+    };
 
     const handleDropdownChange = (e) => {
         setSelectedPatient(e.value);
@@ -45,12 +55,10 @@ export const ModalEditAppointment = ({ visible, setVisible, data }) => {
     };
 
     const handleSubmit = async (status) => {
-
         let formValues;
 
         if (status == 'PENDIENTE') {
             formValues = {
-                // idPatientWithDoctor: selectedPatient,
                 appointmentDate: appointmentDate,
                 appointmentTime: formatTimeToMilitary(timeStart),
                 appointmentTimeEnd: formatTimeToMilitary(timeEnd),
@@ -147,6 +155,22 @@ export const ModalEditAppointment = ({ visible, setVisible, data }) => {
                     disabled
                 />
             </Dialog>
+
+            {/* Confirmation Dialog */}
+            <Dialog
+                visible={showConfirmationDialog}
+                header="Confirmación"
+                modal
+                onHide={() => setShowConfirmationDialog(false)}
+                footer={
+                    <div>
+                        <Button label="Cancelar" icon="pi pi-times" onClick={() => setShowConfirmationDialog(false)} className="p-button-text" />
+                        <Button label="Confirmar" icon="pi pi-check" onClick={handleConfirmation} autoFocus />
+                    </div>
+                }
+            >
+                <p>¿Estás seguro de que deseas realizar esta acción?</p>
+            </Dialog>
         </>
-    )
-}
+    );
+};
